@@ -1,0 +1,369 @@
+/* Common */
+
+
+/* Main */
+
+#main {
+    display: flex;
+}
+
+
+/* Sidebar */
+
+#sidebar {
+    background-color: #231b2e;
+    min-width: 240px;
+    height: 100vh;
+}
+
+#sidebar .home {
+    height: 70px;
+}
+
+#sidebar .btn-home {
+    display: inline-block;
+    margin-left: 28px;
+    margin-top: 16px;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+#sidebar .btn-home-img {
+    height: 34px;
+}
+
+#sidebar .sidebar-main-list,
+#sidebar .sidebar-type-list,
+#sidebar .sidebar-library-list {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar .sidebar-main-list {
+    height: 190px;
+}
+
+#sidebar .sidebar-main-list {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+#sidebar .sidebar-main::after {
+    content: "";
+    display: block;
+    border-top: 2px solid #352e3f;
+}
+
+#sidebar .sidebar-item {
+    padding: 8px 28px;
+    position: relative;
+}
+
+#sidebar .sidebar-link-item {
+    display: block;
+    text-decoration: none;
+    color: var(--text-sidebar);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+#sidebar .btn-add-playlist-sidebar span,
+#sidebar .sidebar-link-item span {
+    display: inline-block;
+    position: absolute;
+}
+
+#sidebar i[class*="ri-"] {
+    display: inline-block;
+    width: 32px;
+    font-size: 2.4rem;
+    font-weight: 100;
+}
+
+#sidebar .sidebar-type {
+    margin-top: 16px;
+    position: relative;
+    overflow: hidden scroll;
+    width: 100%;
+    height: 248px;
+}
+
+#sidebar .sidebar-library-list h2 {
+    color: var(--white-text);
+    padding: 8px 28px;
+}
+
+#sidebar .sidebar-library-list {
+    position: absolute;
+}
+
+#sidebar .add-playlist-sidebar {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 240px;
+    height: 52px;
+    background-color: #231b2e;
+}
+
+#sidebar .btn-add-playlist-sidebar {
+    display: block;
+    text-decoration: none;
+    font-size: 1.6rem;
+    color: var(--white-text);
+    margin-left: 28px;
+}
+
+
+/* Header */
+
+#header {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 240px;
+    height: 70px;
+    background-color: #170f23;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 2rem;
+}
+
+#header .level {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#header .level .level-left {
+    display: flex;
+    margin-right: 5px;
+    flex-grow: 1;
+}
+
+#header .level .level-right {
+    display: flex;
+    flex-grow: 0.1;
+    justify-content: space-between;
+}
+
+#header .btn {
+    height: 40px;
+    width: 40px;
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+
+#header .btn-back,
+#header .btn-forward {
+    opacity: 0.4;
+    background-color: #170f23;
+}
+
+#header .btn-forward {
+    margin-right: 16px;
+}
+
+#header .form-search {
+    background-color: hsla(0, 0%, 100%, 0.1);
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    border-radius: 20px;
+}
+
+#header .search-container {
+    border-radius: 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+#header .search-input,
+#header .btn-search {
+    color: var(--white-text);
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+#header .search-input {
+    width: 90%;
+    outline: none;
+    font-size: 1.5rem;
+}
+
+#header .level-right .btn {
+    background-color: hsla(0, 0%, 100%, 0.1);
+}
+
+#header .level-right .btn-user {
+    background-color: #cdd5e2;
+    height: 38px;
+    width: 38px;
+}
+
+
+/* Container */
+
+#container {
+    margin-top: 70px;
+    padding: 40px 40px 0px;
+    background-color: #170f23;
+    height: 100vh;
+    width: 100%;
+    color: var(--white-text);
+}
+
+#container .content-music {
+    display: flex;
+    height: 230px;
+    padding-bottom: 30px;
+}
+
+#container .content-music .content-disc {
+    height: 200px;
+    width: 200px;
+    background-image: url('../image/LiveDevil_TV_Size_Art.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+#container .content-music-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 20px;
+    line-height: 1.4;
+    width: 488px;
+    font-size: 1.4rem;
+}
+
+#container .content-title .song-name {
+    font-size: 2.4rem;
+}
+
+#container .content-title .song-author {
+    font-size: 1.6rem;
+    color: hsla(0, 0%, 100%, 0.5);
+}
+
+#container .content-music-action {
+    display: flex;
+    justify-content: space-between;
+    width: 260px;
+}
+
+#container .content-music-action .btn {
+    height: 36px;
+    width: 36px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    background-color: hsla(0, 0%, 100%, 0.1);
+}
+
+#container .content-music-action .btn-content-play {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 174px;
+    background-color: #7200a1;
+    border-radius: 20px;
+}
+
+#container .content-music-action .btn-content-play i {
+    font-size: 2rem;
+    margin-right: 5px;
+}
+
+#container .content-list-song {
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+#container .content-list-song .playlist-header {
+    display: flex;
+    align-items: center;
+    color: hsla(0, 0%, 100%, 0.5);
+    height: 45px;
+    padding: 10px;
+}
+
+#container .content-list-song .playlist-header-song {
+    width: 60%;
+    padding-left: 24px;
+}
+
+#container .content-list-song .playlist-header-time-song {
+    width: 15%;
+}
+
+#container .content-list-song .playlist-header-option-song {
+    display: flex;
+    justify-content: center;
+    width: 25%;
+}
+
+#container .playlist-header-option-song .playlist-sorter {
+    border: 1px solid hsla(0, 0%, 100%, 0.5);
+    border-radius: 10px;
+    width: 114px;
+    padding: 1px 19px;
+}
+
+#container .content-list-song .content-playlist {
+    display: flex;
+    height: 70px;
+    padding: 10px;
+}
+
+#container .content-playlist .content-playlist-song {
+    display: flex;
+    width: 60%;
+}
+
+#container .content-playlist-song .song-prefix {
+    height: 40px;
+    width: 24px;
+    padding: 10px;
+    padding-left: 0;
+}
+
+#container .content-playlist-song .song-thumb {
+    height: 40px;
+    width: 40px;
+    background-image: url('../image/LiveDevil_TV_Size_Art.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-right: 20px;
+}
+
+#container .content-playlist .content-playlist-time-song {
+    width: 15%;
+}
+
+#container .content-playlist .content-playlist-option-song {
+    width: 25%;
+}
+
+#container .content-playlist .song-title {
+    font-size: 1.4rem;
+}
+
+#container .content-playlist .content-playlist-option-song {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#container .content-playlist-option-song .btn {
+    background-color: rgba(255, 255, 255, 0);
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    font-size: 1.6rem;
+}
