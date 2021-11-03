@@ -12,11 +12,16 @@
 }
 
 html {
-    overflow: hidden;
     font-size: 62.5%;
     line-height: 1.6rem;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+}
+
+span {
+    overflow: hidden;
+    text-overflow: clip;
+    word-wrap: none;
 }
 
 .grid {
@@ -41,6 +46,33 @@ html {
 .btn {
     border: none;
     color: var(--white-text);
+    cursor: pointer;
+    outline: none;
+}
+
+.round {
+    overflow: hidden;
+    border-radius: 999px !important;
+}
+
+.song-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.song-performer {
+    font-size: 1.2rem;
+    color: hsla(0, 0%, 100%, 0.5);
+}
+
+.content-title,
+.song-title {
+    overflow: hidden;
 }
 
 

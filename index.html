@@ -15,10 +15,12 @@
 
 <body>
     <div id="main">
+
+        <audio id="audio" src=""></audio>
         <div id="sidebar">
             <div class="home">
                 <a class="btn-home">
-                    <img class="btn-home-img" src="" alt="Zing MP3 Logo">
+                    <img class="btn-home-img" src="https://zjs.zadn.vn/zmp3-desktop/releases/v1.4.8/static/media/icon_zing_mp3_60.f6b51045.svg" alt="Zing MP3 Logo">
                 </a>
             </div>
             <div class="sidebar-main">
@@ -122,7 +124,7 @@
                     </button>
                     <form action="" class="form-search">
                         <div class="search-container">
-                            <button class="btn-search">
+                            <button class="btn btn-search">
                                 <i class="ri-search-line"></i>
                             </button>
                             <input type="text" class="search-input" placeholder="Nhập tên bài hát, nghệ sĩ hoặc MV...">
@@ -148,14 +150,14 @@
 
         <div id="container">
             <div class="content-music">
-                <div class="content-disc"></div>
+                <div class="content-disc">
+                    <img src="" alt="">
+                </div>
                 <div class="content-music-heading">
                     <div class="content-title">
                         <div class="song-name">
-                            Live Devil
                         </div>
-                        <div class="song-author">
-                            Da-iCE ft. Subaru Kimura
+                        <div class="song-performer">
                         </div>
                     </div>
                     <div class="content-music-action">
@@ -187,46 +189,79 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-playlist">
-                    <div class="content-playlist-song">
-                        <div class="song-prefix">
-                            <span class="song-number">1</span>
-                        </div>
-                        <div class="song-thumb">
-                            <div class="song-image">
-                            </div>
-                            <div class="song-thumb-active"></div>
-                        </div>
-                        <div class="song-title">
-                            <div class="song-name">
-                                Live Devil
-                            </div>
-                            <div class="song-author">
-                                Da-iCE ft. Subaru Kimura
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content-playlist-time-song">
-                        <span></span>
-                    </div>
-                    <div class="content-playlist-option-song">
-                        <button class="btn btn-mv">
-                            <i class="ri-mv-line"></i>
-                        </button>
-                        <button class="btn btn-lyric">
-                            <i class="ri-mic-line"></i>
-                        </button>
-                        <button class="btn btn-library">
-                            <i class="ri-heart-line"></i>
-                        </button>
-                        <button class="btn btn-option">
-                            <i class="ri-more-line"></i>
-                        </button>
-                    </div>
-                </div>
+                <div class="playlist"></div>
             </div>
         </div>
+        <div id="controls">
+            <div class="controls-left">
+                <figure class="controls-disc round">
+                    <img src="./assets/image/LiveDevil_TV_Size_Art.jpg" alt="LiveDevil">
+                </figure>
+                <div class="song-title">
+                    <span class="song-name">
+                        Live Devil
+                    </span>
+                    <span class="song-performer">
+                        Da-iCE ft. Subaru Kimura
+                    </span>
+                </div>
+                <button class="btn btn-library">
+                    <i class="ri-heart-line"></i>
+                </button>
+                <button class="btn btn-option">
+                    <i class="ri-more-line"></i>
+                </button>
+            </div>
+            <div class="controls-center">
+                <div class="controls-btn">
+                    <button class="btn btn-shuffle">
+                        <i class="ri-shuffle-line"></i>
+                    </button>
+                    <button class="btn btn-skip-back">
+                        <i class="ri-skip-back-line"></i>
+                    </button>
+                    <button class="btn btn-toggle-play">
+                        <i class="ri-pause-circle-line icon-pause"></i>
+                        <i class="ri-play-circle-line icon-play"></i>
+                    </button>
+                    <button class="btn btn-skip-forward">
+                        <i class="ri-skip-forward-line"></i>
+                    </button>
+                    <button class="btn btn-repeat">
+                        <i class="ri-repeat-line"></i>
+                    </button>
+                </div>
+                <div class="controls-time-song">
+                    <span class="time-left">00:00</span>
+                    <input type="range" id="progress" value="0" step="1" min="0" max="100"></input>
+                    <span class="time-right">00:00</span>
+                </div>
+            </div>
+            <div class="controls-right">
+                <button class="btn btn-mv">
+                    <i class="ri-mv-line"></i>
+                </button>
+                <button class="btn btn-lyric">
+                    <i class="ri-mic-line"></i>
+                </button>
+                <button class="btn btn-restore">
+                    <i class="ri-picture-in-picture-line"></i>
+                </button>
+                <button class="btn btn-volume">
+                    <i class="ri-volume-up-line"></i>
+                </button>
+                <div class="divide">
+                    <span></span>
+                </div>
+                <button class="btn btn-playlist">
+                    <i class="ri-play-list-line"></i>
+                </button>
+            </div>
+        </div>
+
     </div>
+
+    <script src="./main.js"></script>
 </body>
 
 </html>
