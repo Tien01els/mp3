@@ -1,10 +1,13 @@
 /*
     1/ Render song
-    2/ Scroll top
-    3/ Play/ pause/ seek
-    4/ CD rotate
-    5/ Next/ prev
-
+    2/ Play/ pause/ seek
+    3/ CD rotate
+    4/ Next/ prev
+    5/ Random
+    6/ Next/ Repeat when ened
+    7/ Active songs
+    8/ Scroll active song into view
+    9/ Play song when click
 */
 
 //Bind document
@@ -15,18 +18,27 @@ const $$ = document.querySelectorAll.bind(document);
 const main = $('#main');
 const audio = $('#audio');
 const progress = $('#progress');
-const controlsDisc = $('.controls-disc');
+const playlist = $('.playlist');
+const songName = $$('.song-name');
+const songPerformer = $$('.song-performer');
 const contentDiscImage = $('.content-disc img');
-const contentSongName = $('.content-title .song-name');
-const contentSongPerformer = $('.content-title .song-performer');
+const controlsDisc = $('.controls-disc');
+const controlsDiscImage = $('.controls-disc img');
 const btnTogglePlay = $('.btn-toggle-play');
 const timeSongCurrent = $('.controls-time-song .time-left');
 const timeSongTotal = $('.controls-time-song .time-right');
+const skipForward = $('.btn-skip-forward');
+const skipBack = $('.btn-skip-back');
+const shuffle = $('.btn-shuffle');
+const repeat = $('.btn-repeat');
+const btnContentPlay = $('.btn-content-toggle');
 
 const app = {
     //Current index song
     currentIndex: 0,
     isPlaying: false,
+    isRandom: false,
+    isRepeat: false,
     //List song
     songs: [{
             name: 'Live Devil',
@@ -49,7 +61,7 @@ const app = {
         {
             name: 'REAL×EYEZ',
             performer: 'J×Takanori Nishikawa',
-            path: './assets/music/REALxEYEZ.m4a',
+            path: './assets/music/REALxEYEZ.mp3',
             image: 'https://i1.sndcdn.com/artworks-000662588752-8lrx7z-t500x500.jpg'
         },
     ],
@@ -57,10 +69,10 @@ const app = {
     //Render playlist
     render: function() {
         let indexSong = 0;
-        const htmls = this.songs.map(song => {
+        const htmls = this.songs.map((song, index) => {
             ++indexSong;
             return `
-            <div class="content-playlist">
+            <div class="content-playlist ${index === this.currentIndex ? 'active' : ''}" data-index=${index}>
                 <div class="content-playlist-song">
                     <div class="song-prefix">
                         <span class="song-number">${indexSong}</span>
@@ -97,7 +109,7 @@ const app = {
                 </div>
             </div>`
         })
-        $('.playlist').innerHTML = htmls.join('');
+        playlist.innerHTML = htmls.join('');
     },
     defineProperties: function() {
         Object.defineProperty(this, 'currentSong', {
@@ -120,26 +132,29 @@ const app = {
 
         discSpin.pause();
 
+        //Hành động click vào nút play hoặc pause
+        btnContentPlay.onclick = () => {
+            _this.playAudio();
+        }
 
         //Hành động click vào nút play hoặc pause
-        btnTogglePlay.onclick = function() {
-            if (_this.isPlaying)
-                audio.pause();
-            else
-                audio.play();
+        btnTogglePlay.onclick = () => {
+            _this.playAudio();
         }
 
         //Khi bài hát chạy
-        audio.onplay = function() {
+        audio.onplay = () => {
             _this.isPlaying = true;
             main.classList.add('playing');
+            main.classList.remove('pausing');
             discSpin.play();
         }
 
         //Khi bài hát đừng
-        audio.onpause = function() {
+        audio.onpause = () => {
             _this.isPlaying = false;
             main.classList.remove('playing');
+            main.classList.add('pausing');
             discSpin.pause();
         }
 
@@ -147,20 +162,91 @@ const app = {
         audio.addEventListener('timeupdate', _this.audioTimeUpdate);
 
         //Xử lí khi tua
-        progress.onchange = function(e) {
+        progress.onchange = (e) => {
             audio.removeEventListener('timeupdate', _this.audioTimeUpdate);
             const seekTime = e.target.value * audio.duration / 100;
             audio.currentTime = seekTime;
             audio.addEventListener('timeupdate', _this.audioTimeUpdate);
         }
 
+        //Khi nhấn nút next thì next bài hát
+        skipForward.onclick = () => {
+            if (_this.isRandom) {
+                _this.randomSong();
+            } else {
+                _this.nextSong();
+            }
+            audio.play();
+        }
 
+        //Khi nhấn nút prev thì prev bài hát
+        skipBack.onclick = () => {
+            if (_this.isRandom) {
+                _this.randomSong();
+            } else {
+                _this.prevSong();
+            }
+            audio.play();
+        }
+
+        //Xử lí bật tắt random song
+        shuffle.onclick = (e) => {
+            _this.isRandom = !_this.isRandom;
+            shuffle.classList.toggle('active', _this.isRandom);
+        }
+
+        //Xử lí bật tắt repeat song
+        repeat.onclick = () => {
+            _this.isRepeat = !_this.isRepeat;
+            repeat.classList.toggle('active', _this.isRepeat);
+        }
+
+        //Next bài hát khi audio end
+        audio.onended = () => {
+            if (_this.isRepeat)
+                audio.play();
+            else
+                skipForward.click();
+        }
+
+        //Lắng nghe click vào playlist
+        playlist.onclick = e => {
+            const songNotActive = e.target.closest('.content-playlist:not(.active)');
+            const songOptine = e.target.closest('button');
+
+            if (songNotActive || songOptine) {
+                //Xử lí khi click vào song
+                if (songNotActive) {
+                    const oldIndex = _this.currentIndex;
+                    const contentPlaylist = $$('.content-playlist');
+                    _this.currentIndex = Number(songNotActive.dataset.index);
+                    _this.loadCurrentSong();
+                    _this.activeSong(contentPlaylist, oldIndex, _this.currentIndex);
+                    audio.play();
+                }
+                //Xử lí khi click vào btn
+                if (songOptine) {
+
+                }
+            }
+        }
     },
     loadCurrentSong: function() {
-        contentSongName.textContent = this.currentSong.name;
-        contentSongPerformer.textContent = this.currentSong.performer;
+        for (let name of songName)
+            name.textContent = this.currentSong.name;
+        for (let performer of songPerformer)
+            performer.textContent = this.currentSong.performer;
         contentDiscImage.src = this.currentSong.image;
+        controlsDiscImage.src = this.currentSong.image;
         audio.src = this.currentSong.path;
+
+        // this.render();
+    },
+    playAudio: function() {
+        if (this.isPlaying)
+            audio.pause();
+        else
+            audio.play();
     },
     audioTimeUpdate: function() {
         if (audio.duration) {
@@ -183,7 +269,45 @@ const app = {
             seconds = `0${seconds}`;
         return `${minutes}:${seconds}`;
     },
-
+    nextSong: function() {
+        const contentPlaylist = $$('.content-playlist');
+        const oldIndex = this.currentIndex;
+        ++this.currentIndex;
+        if (this.currentIndex >= this.songs.length)
+            this.currentIndex = 0;
+        this.activeSong(contentPlaylist, oldIndex, this.currentIndex);
+        this.loadCurrentSong();
+    },
+    prevSong: function() {
+        const contentPlaylist = $$('.content-playlist');
+        const oldIndex = this.currentIndex;
+        --this.currentIndex;
+        if (this.currentIndex < 0)
+            this.currentIndex = this.songs.length - 1;
+        this.activeSong(contentPlaylist, oldIndex, this.currentIndex);
+        this.loadCurrentSong();
+    },
+    randomSong: function() {
+        const contentPlaylist = $$('.content-playlist');
+        const oldIndex = this.currentIndex;
+        do {
+            this.currentIndex = Math.floor(Math.random() * this.songs.length);
+        } while (this.currentIndex === oldIndex);
+        this.activeSong(contentPlaylist, oldIndex, this.currentIndex);
+        this.loadCurrentSong();
+    },
+    activeSong: function(contentPlaylist, oldIndex, newIndex) {
+        contentPlaylist[oldIndex].classList.remove('active');
+        contentPlaylist[newIndex].classList.add('active');
+    },
+    scrollToActiveSong: function() {
+        setTimeout(() => {
+            $('.content-playlist.active').scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+            });
+        }, 300)
+    },
     start: function() {
         //Định nghĩa các thuộc tính cho object
         this.defineProperties();
@@ -191,12 +315,11 @@ const app = {
         //Lắng nghe xử lí các sự kiện trong dom
         this.handleEvents();
 
-        //Tải thông tin bài hát hiện tại vào UI th
-        this.loadCurrentSong();
-
         //Render playlist
         this.render();
 
+        //Tải thông tin bài hát hiện tại vào UI th
+        this.loadCurrentSong();
     }
 }
 
