@@ -44,7 +44,9 @@ span {
     margin: 8px 12px;
 }
 
-.btn {
+.btn,
+input[type=button],
+input[type=submit] {
     border: none;
     color: var(--white-text);
     cursor: pointer;
