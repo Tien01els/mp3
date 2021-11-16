@@ -1,7 +1,7 @@
-const login = $('.login');
-const register = $('.register');
-const loginContainer = $('.login-container');
-const registerContainer = $('.register-container');
+const login = document.querySelector('.login');
+const register = document.querySelector('.register');
+const loginContainer = document.querySelector('.login-container');
+const registerContainer = document.querySelector('.register-container');
 
 login.onclick = function() {
     console.log('register');
