@@ -791,6 +791,10 @@
     transition: .5s;
 }
 
+.form-content-input .form-label:not(.text-remember) {
+    cursor: text;
+}
+
 .form-content-input .form-input:focus~.form-label,
 .form-content-input .form-input:valid+.form-label {
     top: -14px;
@@ -844,7 +848,7 @@
     flex-grow: 1;
 }
 
-.icon-login {
+.icon-group {
     display: flex;
     align-items: center;
     justify-content: space-around;
